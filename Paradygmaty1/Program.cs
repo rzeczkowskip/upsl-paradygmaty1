@@ -9,6 +9,7 @@ ICommand[] commands =
     new PassByResult(),
     new PassByValueResult(),
     new PassByReference(),
+    new Overloading(),
 };
 
 Orchestrator orchestrator = new Orchestrator(commands);
