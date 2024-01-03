@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Paradygmaty1", "Paradygmaty1\Paradygmaty1.csproj", "{1EDD3AD1-B611-40BD-9DED-EF42503DD400}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1EDD3AD1-B611-40BD-9DED-EF42503DD400}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EDD3AD1-B611-40BD-9DED-EF42503DD400}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EDD3AD1-B611-40BD-9DED-EF42503DD400}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EDD3AD1-B611-40BD-9DED-EF42503DD400}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
