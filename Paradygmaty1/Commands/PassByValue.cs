@@ -37,7 +37,7 @@ public class PassByValue: ICommand
         // wiadomości z podprogramu zostaną wyświetlone PRZED poniższymi w związku ze wstrzymaniem
         // wykonywania programu na czas działana podprogramu
         Console.WriteLine($"Wartość po obliczeniach:");
-        Console.WriteLine($"x = {x}\n");
+        Console.WriteLine($"x = {x}");
     }
 
     private void doCalculationsOnNumber(int x)
