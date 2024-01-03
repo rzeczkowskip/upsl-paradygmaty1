@@ -21,7 +21,8 @@ public class PassByReference: ICommand
         return "Przekazywanie przez referencję oznacza, że do podprogramu/funkcji przekazywany jest wskaźnik do zmiennej," +
                "a nie jej wartość. Pozwala to na modyfikację wartości zmiennej bezpośrednio w podprogramie.\n" +
                "\n" +
-               "W C# obiekty są domyślnie przekazywane przez referencje";
+               "W C# obiekty są domyślnie przekazywane przez referencje.\n" +
+               "Referencją może również być wskaźnik fukncji.";
     }
 
 
@@ -68,6 +69,15 @@ public class PassByReference: ICommand
         increasePersonAndChildrenAge(parent, ref modifiedPersonAgeCount);
         _ioHelper.StepComment("Podprogram zakończył pracę.");
         showPersonInfo("po dodaniu wieku", parent, modifiedPersonAgeCount);
+        
+        _ioHelper.Info("\nReferencją może również być wskaźnik funkcji.\n");
+        _ioHelper.StepComment("Mając 2 podprogramy:\n" +
+                              "  * `printPerson`, który przyjmuje obiekt `Person` aby wyświetlić jego dane\n" +
+                              "  * `runCallbackOnPersonsChildren`, który przyjmuje obiekt `Person` oraz wskażnik funkcji, do którego trafią jego dzieci\n" +
+                              "Następuje wywołanie `runCallbackOnPersonsChildren` z parametrami `person = parent` oraz wskaźnikiem `callback = printPerson`");
+        
+        runCallbackOnPersonsChildren(parent, printPerson);
+        _ioHelper.StepComment("Podprogram zakończył pracę.");
     }
 
     private void increasePersonAndChildrenAge(Person person, ref int modifiedPersonAgeCount)
@@ -81,6 +91,16 @@ public class PassByReference: ICommand
         {
             increasePersonAndChildrenAge(child, ref modifiedPersonAgeCount);
         }
+    }
+
+    private void printPerson(Person person)
+    {
+        _ioHelper.Result($"  {person.Name} ({person.Age})");
+    }
+
+    private void runCallbackOnPersonsChildren(Person person, Action<Person> callback)
+    {
+        person.Children.ForEach(callback);
     }
 
     private void showPersonInfo(string comment, Person person, int modifiedPersonAgeCount)
