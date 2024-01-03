@@ -2,19 +2,6 @@ using Paradygmaty1.Model;
 
 namespace Paradygmaty1.Commands;
 
-/*
- * Przekazywanie przez referencję oznacza, że do podprogramu/funkcji przekazywany jest wskaźnik do zmiennej, a nie jej
- * wartość. Pozwala to na modyfikację wartości zmiennej bezpośrednio w podprogramie.
- 
- * W C# obiekty są domyślnie przekazywane przez referencje
- *
- *
- * 1. Do zmiennej `x` zostaje przypisana losowa wartość liczbowa
- * 2. Zmienna zostaje przekazana do podprogramu `doCalculationsOnNumber`
- * 3. Program zostaje wstrzymany, a podprogram `doCalculationsOnNumber` rozpoczyna pracę
- * 3. Podprogram `doCalculationsOnNumber` wykonuje obliczenia na przekazanej zmiennej
- * 4. Oryginalna wartość zmiennej `x` pozostaje bez zmian
- */
 public class PassByReference: ICommand
 {
     private readonly IOHelper _ioHelper;
@@ -31,13 +18,21 @@ public class PassByReference: ICommand
 
     public string Description()
     {
-        throw new NotImplementedException();
+        return "Przekazywanie przez referencję oznacza, że do podprogramu/funkcji przekazywany jest wskaźnik do zmiennej," +
+               "a nie jej wartość. Pozwala to na modyfikację wartości zmiennej bezpośrednio w podprogramie.\n" +
+               "\n" +
+               "W C# obiekty są domyślnie przekazywane przez referencje";
     }
 
 
     public void Execute()
     {
-        int modifiedPersonAgeCount;
+        _ioHelper.StepComment("Następuje przygotwanie zmiennych `modifiedPersonAgeCount` oraz `person`\n" +
+                              "Obie będą przekazywane przez referencje do podprogramów. Zmienna `modifiedPersonAgeCount`\n" +
+                              "Będzie śledziła ilość zmian w wieku modelu osoby i jej dzieci, a `person` to obiekt,\n" +
+                              "w którym dokonujemy zmian (oraz w obiekatch zawartych w nim samym).");
+        
+        int modifiedPersonAgeCount = 0;
         List<Person> children = new List<Person>()
         {
             new("Bob", 1),
@@ -45,30 +40,43 @@ public class PassByReference: ICommand
         };
         
         Person parent = new Person("John", 22, children);
-
-        modifiedPersonAgeCount = 0;
+        
+        reinitModifiedPersonAgeCount(ref modifiedPersonAgeCount);
+        _ioHelper.StepComment("Następuje wywoałenie podprogramu `increasePersonAndChildrenAge`.");
         showPersonInfo("przed wywołaniem", parent, modifiedPersonAgeCount);
-        Console.WriteLine();
-
-        modifiedPersonAgeCount = 0;
+        
+        _ioHelper.PressEnterToContinue();
+        
+        reinitModifiedPersonAgeCount(ref modifiedPersonAgeCount);
+        _ioHelper.StepComment("Następuje wywoałenie podprogramu `increasePersonAndChildrenAge`.");
         increasePersonAndChildrenAge(parent, ref modifiedPersonAgeCount);
+        _ioHelper.StepComment("Podprogram zakończył pracę");
         showPersonInfo("po dodaniu wieku", parent, modifiedPersonAgeCount);
-        Console.WriteLine();
+        
+        _ioHelper.PressEnterToContinue();
 
-        modifiedPersonAgeCount = 0;
+        reinitModifiedPersonAgeCount(ref modifiedPersonAgeCount);
+        _ioHelper.StepComment("Następuje dodanie nowego dziecka do referencji listy dzieci.");
         parent.Children.Add(new Person("Mike", 7));
+        _ioHelper.StepComment("Podprogram zakończył pracę.");
         showPersonInfo("po dodaniu 7 letniego dziecka", parent, modifiedPersonAgeCount);
-        Console.WriteLine();
+        
+        _ioHelper.PressEnterToContinue();
 
-        modifiedPersonAgeCount = 0;
+        reinitModifiedPersonAgeCount(ref modifiedPersonAgeCount);
+        _ioHelper.StepComment("Następuje wywoałenie podprogramu `increasePersonAndChildrenAge`.");
         increasePersonAndChildrenAge(parent, ref modifiedPersonAgeCount);
+        _ioHelper.StepComment("Podprogram zakończył pracę.");
         showPersonInfo("po dodaniu wieku", parent, modifiedPersonAgeCount);
     }
 
     private void increasePersonAndChildrenAge(Person person, ref int modifiedPersonAgeCount)
     {
+        _ioHelper.StepComment($"  Zwiększanie wieku osoby {person.Name}");
+        
         modifiedPersonAgeCount += 1;
         person.Age += 1;
+        
         foreach (var child in person.Children)
         {
             increasePersonAndChildrenAge(child, ref modifiedPersonAgeCount);
@@ -77,9 +85,16 @@ public class PassByReference: ICommand
 
     private void showPersonInfo(string comment, Person person, int modifiedPersonAgeCount)
     {
-        Console.WriteLine($"Wiek rodzica {comment}: {person.Age}");
-        Console.WriteLine($"Ilość dzieci {comment}: {person.ChildrenCount()}");
-        Console.WriteLine($"Suma wieku dzieci {comment}: {person.SumChildrenAge()}");
-        Console.WriteLine($"Wiek zmieniony u {modifiedPersonAgeCount} osób.");
+        _ioHelper.StepComment("Aktualne dane osoby:");
+        _ioHelper.Result($"Wiek rodzica {comment} = {person.Age}");
+        _ioHelper.Result($"Ilość dzieci {comment} = {person.ChildrenCount()}");
+        _ioHelper.Result($"Suma wieku dzieci {comment} = {person.SumChildrenAge()}");
+        _ioHelper.Result($"Wiek zmieniony u {modifiedPersonAgeCount} osób.");
+    }
+
+    private void reinitModifiedPersonAgeCount(ref int modifiedPersonAgeCount)
+    {
+        _ioHelper.StepComment("Wartość `modifiedPersonAgeCount` zostaje usatwiona na 0");
+        modifiedPersonAgeCount = 0;
     }
 }

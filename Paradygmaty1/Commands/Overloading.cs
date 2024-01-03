@@ -31,17 +31,21 @@ public class Overloading: ICommand
 
     public void Execute()
     {
+        _ioHelper.PressEnterToContinue();
+        ;
         int intSumResult = Sum(1, 2);
+        _ioHelper.StepComment("Podprogram zakończył pracę");
         _ioHelper.Result($"x = {intSumResult}");
         _ioHelper.PressEnterToContinue();
         
         double doubleSumResult = Sum(1, 0.23);
+        _ioHelper.StepComment("Podprogram zakończył pracę");
         _ioHelper.Result($"x = {doubleSumResult}");
         _ioHelper.PressEnterToContinue();
         
         double stringToDoubleSumResult = Sum("1", "1.23");
+        _ioHelper.StepComment("Podprogram zakończył pracę");
         _ioHelper.Result($"x = {stringToDoubleSumResult}");
-        _ioHelper.PressEnterToContinue();
     }
 
     private int Sum(int a, int b)

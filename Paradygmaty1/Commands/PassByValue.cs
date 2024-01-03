@@ -16,7 +16,8 @@ public class PassByValue: ICommand
     public string Description()
     {
         return
-            "* Przekazywanie przez wartość oznacza, że do podprogramu/funkcji przekazywana jest kopia wartości zmiennej, a nie sama wartość.\n" +
+            "Przekazywanie przez wartość oznacza, że do podprogramu/funkcji przekazywana jest kopia wartości zmiennej, a nie sama wartość.\n" +
+            "Przekazany parametr w podprogramie zachowuje się jak zmienna lokalna. Operacje na niej nie zmieniają oryginalnej wartości.\n" +
             "\n" +
             "W C#, typy proste oraz struktury domyślnie są przekazywane przez wartość.\n" +
             "Poniższy przykład prezentuje przekazywanie przez wartość.";
@@ -36,6 +37,7 @@ public class PassByValue: ICommand
         
         int result = doCalculationsOnNumber(x);
         
+        _ioHelper.StepComment("Podprogram zakończył pracę");
         _ioHelper.PressEnterToContinue();
         
         // wiadomości z podprogramu zostaną wyświetlone PRZED poniższymi w związku ze wstrzymaniem
@@ -48,7 +50,7 @@ public class PassByValue: ICommand
 
     private int doCalculationsOnNumber(int x)
     {
-        _ioHelper.StepComment($"Na przekazanej wartości `x` ({x}) wykonanie zostaje równanie `x - x + 2`");
+        _ioHelper.StepComment($"Na przekazanej wartości `x` ({x}) wykonanie zostaje równanie `f(x) = x - x + 2`");
         x = x - x + 2;
         
         _ioHelper.StepComment("Wartość w podprogramie wykonującym obliczenia:");

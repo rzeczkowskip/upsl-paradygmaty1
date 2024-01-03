@@ -54,16 +54,21 @@ public class PassByResult: ICommand
         _ioHelper.StepComment("Do podprogramu `passByResult` zostaje przekazany parametr jako zmienna `out int result`\n" +
                               "Parametr `result` nie został wcześniej zainicjowany.\n");
         
+        _ioHelper.PressEnterToContinue();
+        
         passByResult(out int result);
         
-        _ioHelper.StepComment("Podprogram zakończył pracę. Oto wynik zapisany w przekazanej zmiennej:");
+        _ioHelper.StepComment("Podprogram zakończył pracę");
+        _ioHelper.PressEnterToContinue();
+        
+        _ioHelper.StepComment("Oto wynik zapisany w przekazanej zmiennej:");
         _ioHelper.Result($"result = {result}");
     }
 
     private void passByResult(out int result)
     {
         _ioHelper.StepComment("W podprogramie nie ma możliwości wykonanie operacji z wykorzystaniem wartości przekazanej zmiennej.\n" +
-                              "Możliwe jest jedynie przypisanei wartości. Wyreżenie `result += 1` zwróci błąd.\n");
+                              "Możliwe jest jedynie przypisanie wartości. Wyreżenie `result += 1` zwróci błąd.\n");
         
         _ioHelper.StepComment("Następuje przypisanie wartości `1` do parametru `result`");
         result = 1;

@@ -7,7 +7,7 @@ public class IOHelper
         Console.ForegroundColor = ConsoleColor.DarkYellow;
         foreach (var s in message.Split("\n"))
         {
-            Console.WriteLine($"// {message}");
+            Console.WriteLine($"// {s}");
         }
         Console.ResetColor();
     }
