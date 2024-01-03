@@ -1,3 +1,4 @@
+using System.Globalization;
 using Paradygmaty1.Model;
 
 namespace Paradygmaty1.Commands;
@@ -62,8 +63,8 @@ public class Overloading: ICommand
 
     private double Sum(string a, string b)
     {
-        bool isValidA = double.TryParse(a, out double aNumber);
-        bool isValidB = double.TryParse(b, out double bNumber);
+        bool isValidA = double.TryParse(a, NumberStyles.Any, CultureInfo.InvariantCulture, out double aNumber);
+        bool isValidB = double.TryParse(b, NumberStyles.Any, CultureInfo.InvariantCulture, out double bNumber);
 
         if (!isValidA || !isValidB)
         {
