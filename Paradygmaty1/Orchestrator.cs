@@ -4,15 +4,17 @@ namespace Paradygmaty1;
 
 public class Orchestrator
 {
+    private readonly IOHelper _ioHelper;
     private readonly ICommand[] _commands;
 
-    public Orchestrator(ICommand[] commands)
+    public Orchestrator(IOHelper ioHelper, ICommand[] commands)
     {
         if (commands.Length == 0)
         {
             throw new Exception("Command list has to include at least 1 command.");
         }
-        
+
+        _ioHelper = ioHelper;
         _commands = commands;
     }
 
@@ -29,30 +31,31 @@ public class Orchestrator
 
             ICommand command = _commands[commandIndexToRun];
             
-            Console.WriteLine($"\n{command.Name()}");
-            Console.WriteLine($"Kod oraz opis tego przykładu możesz zobaczyć w kodzie zródłowym w klasie: {command.GetType().FullName}");
+            _ioHelper.Message($"\n{command.Name()}\n");
+            _ioHelper.Info($"{command.Description()}\n");
+            _ioHelper.Info($"Kod tego przykładu możesz zobaczyć w kodzie zródłowym w klasie: {command.GetType().FullName}");
             PressEnterToContinue();
             
-            Console.WriteLine("\n=== Start  ===\n");
+            _ioHelper.Message("\n=== Start  ===\n");
             
             command.Execute();
 
-            Console.WriteLine("\n=== Koniec ===\n");
+            _ioHelper.Message("\n=== Koniec ===\n");
             PressEnterToContinue();
         }
     }
 
     private int AskWhichCommandToRun()
     {
-        Console.WriteLine("Wybierz przykład do uruchomienia:");
-        Console.WriteLine();
+        _ioHelper.Message("Wybierz przykład do uruchomienia:");
+        _ioHelper.Message();
         
         for (var i = 0; i < _commands.Length; i++)
         {
-            Console.WriteLine($"\t{i+1} - {_commands[i].Name()}");
+            _ioHelper.Message($"\t{i+1} - {_commands[i].Name()}");
         }
         
-        Console.WriteLine("\n\tq - Wyjście z programu\n");
+        _ioHelper.Message("\n\tq - Wyjście z programu\n");
         
         while (true)
         {
@@ -70,7 +73,7 @@ public class Orchestrator
                 return selectedOption - 1;
             }
             
-            Console.WriteLine("Błędna opcja, spróbuj ponownie.");
+            _ioHelper.Message("Błędna opcja, spróbuj ponownie.");
             
         }
     }

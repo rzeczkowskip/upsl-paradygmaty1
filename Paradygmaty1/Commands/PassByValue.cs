@@ -17,12 +17,22 @@ namespace Paradygmaty1.Commands;
 public class PassByValue: ICommand
 {
     private readonly Random _rng = new();
+ 
+    private readonly IOHelper _ioHelper;
+
+    public PassByValue(IOHelper ioHelper)
+    {
+        _ioHelper = ioHelper;
+    }
     
     public string Name()
     {
         return "Przekazywanie przez wartość";
     }
-    
+    public string Description()
+    {
+        throw new NotImplementedException();
+    }
     public void Execute()
     {
         // przypisanie losowej wartości

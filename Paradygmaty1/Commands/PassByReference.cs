@@ -6,9 +6,8 @@ namespace Paradygmaty1.Commands;
  * Przekazywanie przez referencję oznacza, że do podprogramu/funkcji przekazywany jest wskaźnik do zmiennej, a nie jej
  * wartość. Pozwala to na modyfikację wartości zmiennej bezpośrednio w podprogramie.
  
- * W C# obiekty są domyślnie przekazywane przez referencję
+ * W C# obiekty są domyślnie przekazywane przez referencje
  *
- * Poniższy przykład prezentuje przekazywanie przez wartość. Krok po kroku:
  *
  * 1. Do zmiennej `x` zostaje przypisana losowa wartość liczbowa
  * 2. Zmienna zostaje przekazana do podprogramu `doCalculationsOnNumber`
@@ -18,10 +17,23 @@ namespace Paradygmaty1.Commands;
  */
 public class PassByReference: ICommand
 {
+    private readonly IOHelper _ioHelper;
+
+    public PassByReference(IOHelper ioHelper)
+    {
+        _ioHelper = ioHelper;
+    }
+    
     public string Name()
     {
         return "Przekazywanie przez referencję";
     }
+
+    public string Description()
+    {
+        throw new NotImplementedException();
+    }
+
 
     public void Execute()
     {

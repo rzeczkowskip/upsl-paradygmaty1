@@ -39,11 +39,21 @@ namespace Paradygmaty1.Commands;
  */
 public class PassByResult: ICommand
 {
+    private readonly IOHelper _ioHelper;
+
+    public PassByResult(IOHelper ioHelper)
+    {
+        _ioHelper = ioHelper;
+    }
+    
     public string Name()
     {
         return "Przekazywanie przez wynik";
     }
-
+    public string Description()
+    {
+        throw new NotImplementedException();
+    }
     public void Execute()
     {
         // utworzenie i przekazanie zmiennej `result` do podprogramu

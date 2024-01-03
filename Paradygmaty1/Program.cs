@@ -3,14 +3,16 @@
 using Paradygmaty1;
 using Paradygmaty1.Commands;
 
+IOHelper ioHelper = new IOHelper();
+
 ICommand[] commands =
 {
-    new PassByValue(),
-    new PassByResult(),
-    new PassByValueResult(),
-    new PassByReference(),
-    new Overloading(),
+    new PassByValue(ioHelper),
+    new PassByResult(ioHelper),
+    new PassByValueResult(ioHelper),
+    new PassByReference(ioHelper),
+    new Overloading(ioHelper),
 };
 
-Orchestrator orchestrator = new Orchestrator(commands);
+Orchestrator orchestrator = new Orchestrator(ioHelper, commands);
 orchestrator.StartMainLoop();

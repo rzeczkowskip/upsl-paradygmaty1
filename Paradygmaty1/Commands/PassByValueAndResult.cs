@@ -33,11 +33,21 @@ namespace Paradygmaty1.Commands;
  */
 public class PassByValueResult: ICommand
 {
+    private readonly IOHelper _ioHelper;
+
+    public PassByValueResult(IOHelper ioHelper)
+    {
+        _ioHelper = ioHelper;
+    }
+    
     public string Name()
     {
         return "Przekazywanie przez wartość-wynik";
     }
-
+    public string Description()
+    {
+        throw new NotImplementedException();
+    }
     public void Execute()
     {
         int input = 1;
