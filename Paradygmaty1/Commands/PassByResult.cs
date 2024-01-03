@@ -24,12 +24,13 @@ namespace Paradygmaty1.Commands;
    
    Procedure  PassByResult (A: out integer) is  
    begin
-       A := 4;
+       A := A + 4; -- parametr A jest oznaczony jako `out`. Początkowa wartość lokalna to 0
    end PassByResult;
    
    begin 
+       x := 1; -- ustawiamy wartość `x` na 1, aby zaprezentować brak przekazania wartości
        PassByResult (x);
-       Put(x);
+       Put(x); -- x = 4
        New_Line;
    end proc;
    ```
