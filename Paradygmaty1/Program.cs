@@ -5,7 +5,8 @@ using Paradygmaty1.Commands;
 
 ICommand[] commands =
 {
-    new PassByValue()
+    new PassByValue(),
+    new PassByResult(),
 };
 
 Orchestrator orchestrator = new Orchestrator(commands);
