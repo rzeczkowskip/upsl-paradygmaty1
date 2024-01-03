@@ -20,14 +20,25 @@ public class Orchestrator
     {
         while (true)
         {
-            int commandToRun = AskWhichCommandToRun();
+            int commandIndexToRun = AskWhichCommandToRun();
 
-            if (commandToRun == -1)
+            if (commandIndexToRun == -1)
             {
                 return;
             }
-        
-            _commands[commandToRun].Execute();
+
+            ICommand command = _commands[commandIndexToRun];
+            
+            Console.WriteLine($"\n{command.Name()}");
+            Console.WriteLine($"Kod oraz opis tego przykładu możesz zobaczyć w kodzie zródłowym w klasie: {command.GetType().FullName}");
+            PressEnterToContinue();
+            
+            Console.WriteLine("\n=== Start  ===\n");
+            
+            command.Execute();
+
+            Console.WriteLine("\n=== Koniec ===\n");
+            PressEnterToContinue();
         }
     }
 
@@ -62,5 +73,11 @@ public class Orchestrator
             Console.WriteLine("Błędna opcja, spróbuj ponownie.");
             
         }
+    }
+
+    private void PressEnterToContinue()
+    {
+        Console.Write("Naciśnij [ENTER] aby kontynuować...");
+        Console.ReadLine();
     }
 }
