@@ -32,20 +32,23 @@ public class PassByValue: ICommand
         Console.WriteLine($"x = {x}\n");
         
         // przekazanie zmiennej do podprogramu
-        doCalculationsOnNumber(x);
+        int result = doCalculationsOnNumber(x);
         
         // wiadomości z podprogramu zostaną wyświetlone PRZED poniższymi w związku ze wstrzymaniem
         // wykonywania programu na czas działana podprogramu
-        Console.WriteLine($"Wartość po obliczeniach:");
+        Console.WriteLine($"Wartość po obliczeniach (x - wartość oryginalna, x2 - wartość po obliczeniach):");
         Console.WriteLine($"x = {x}");
+        Console.WriteLine($"x2 = {result}");
     }
 
-    private void doCalculationsOnNumber(int x)
+    private int doCalculationsOnNumber(int x)
     {
         // wykonanie obliczeń i przypisanie wyniku do przekazanej zmiennej
-        x = x / 2;
+        x = x - x + 2;
         
         Console.WriteLine($"Wartość w podprogramie wykonującym obliczenia:");
         Console.WriteLine($"x = {x}\n");
+
+        return x;
     } 
 }
