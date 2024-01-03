@@ -35,7 +35,7 @@ public class PassByValueResult: ICommand
 {
     public string Name()
     {
-        return "Przekazywanie przez wynik";
+        return "Przekazywanie przez wartość-wynik";
     }
 
     public void Execute()
