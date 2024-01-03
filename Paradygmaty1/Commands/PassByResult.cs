@@ -12,6 +12,29 @@ namespace Paradygmaty1.Commands;
  * 2. Zmienna `result` zachowuje się jak parametr lokalny
  * 3. Po wykonaniu obliczeń w `passByResult`, wynik przypisywany jest do zmiennej `result` i trafia do programu
  *    głównego.
+ *
+ * Przekazywanie przez wynik wspiera język Ada. Oto przykład
+ 
+   ```
+   with Gnat.Io; use Gnat.Io;
+   
+   procedure proc is
+   
+   x : Integer;
+   
+   Procedure  PassByResult (A: out integer) is  
+   begin
+       A := 4;
+   end PassByResult;
+   
+   begin 
+       PassByResult (x);
+       Put(x);
+       New_Line;
+   end proc;
+   ```
+   
+   Jak widać, kod jest zbliżony do tego, który wykonujemy w C#;
  */
 public class PassByResult: ICommand
 {
