@@ -1,23 +1,7 @@
 namespace Paradygmaty1.Commands;
 
-/*
- * Przekazywanie przez wartość oznacza, że do podprogramu/funkcji przekazywana jest kopia
- * wartości zmiennej, a nie sama wartość.
- *
- * W C#, typy proste oraz struktury domyślnie są przekazywane przez wartość.
- *
- * Poniższy przykład prezentuje przekazywanie przez wartość. Krok po kroku:
- *
- * 1. Do zmiennej `x` zostaje przypisana losowa wartość liczbowa
- * 2. Zmienna zostaje przekazana do podprogramu `doCalculationsOnNumber`
- * 3. Program zostaje wstrzymany, a podprogram `doCalculationsOnNumber` rozpoczyna pracę
- * 3. Podprogram `doCalculationsOnNumber` wykonuje obliczenia na przekazanej zmiennej
- * 4. Oryginalna wartość zmiennej `x` pozostaje bez zmian
- */
 public class PassByValue: ICommand
 {
-    private readonly Random _rng = new();
- 
     private readonly IOHelper _ioHelper;
 
     public PassByValue(IOHelper ioHelper)
@@ -31,33 +15,44 @@ public class PassByValue: ICommand
     }
     public string Description()
     {
-        throw new NotImplementedException();
+        return
+            "* Przekazywanie przez wartość oznacza, że do podprogramu/funkcji przekazywana jest kopia wartości zmiennej, a nie sama wartość.\n" +
+            "\n" +
+            "W C#, typy proste oraz struktury domyślnie są przekazywane przez wartość.\n" +
+            "Poniższy przykład prezentuje przekazywanie przez wartość.";
     }
     public void Execute()
     {
-        // przypisanie losowej wartości
-        int x = _rng.Next();
+        _ioHelper.StepComment("Przypisanie początkowej wartości do `x`");
+        int x = 420;
         
-        Console.WriteLine("Wartość przez obliczeniami:");
-        Console.WriteLine($"x = {x}\n");
+        _ioHelper.StepComment("Wartość przez obliczeniami:");
+        _ioHelper.Result($"x = {x}\n");
         
-        // przekazanie zmiennej do podprogramu
+        _ioHelper.StepComment("Przekazanie wartości `x` do podprogramu `doCalculationsOnNumber`\n" +
+                              "W tym momencie program zostaje wstrzymany, a podprogram rozpoczyna pracę.");
+        
+        _ioHelper.PressEnterToContinue();
+        
         int result = doCalculationsOnNumber(x);
+        
+        _ioHelper.PressEnterToContinue();
         
         // wiadomości z podprogramu zostaną wyświetlone PRZED poniższymi w związku ze wstrzymaniem
         // wykonywania programu na czas działana podprogramu
-        Console.WriteLine($"Wartość po obliczeniach (x - wartość oryginalna, x2 - wartość po obliczeniach):");
-        Console.WriteLine($"x = {x}");
-        Console.WriteLine($"x2 = {result}");
+        _ioHelper.StepComment($"Wartość po obliczeniach (x - wartość oryginalna, x2 - wartość po obliczeniach):");
+        _ioHelper.Result($"x = {x}, x2 = {result}");
+        
+        _ioHelper.Info("Jak widać, mimo modyfikacji zmiennej w podprogramie, oryginalna zmienna zachowała swoją wartość.");
     }
 
     private int doCalculationsOnNumber(int x)
     {
-        // wykonanie obliczeń i przypisanie wyniku do przekazanej zmiennej
+        _ioHelper.StepComment($"Na przekazanej wartości `x` ({x}) wykonanie zostaje równanie `x - x + 2`");
         x = x - x + 2;
         
-        Console.WriteLine($"Wartość w podprogramie wykonującym obliczenia:");
-        Console.WriteLine($"x = {x}\n");
+        _ioHelper.StepComment("Wartość w podprogramie wykonującym obliczenia:");
+        _ioHelper.Result($"x = {x}\n");
 
         return x;
     } 
