@@ -2,17 +2,6 @@ namespace Paradygmaty1.Commands;
 
 
 /*
- * Przekazywanie przez wynik oznacza, że do podprogramu/funkcji przekazywana jest zmienna, do której przypisywana jest
- * wartość w podprogramie. Nie jest to jednak przekazywanie przez referencję, gdzie przekazywany jest wkaźnik do
- * zmiennej.
- *
- * W języku C# nabradziej zbliżonym sposobem zaprezentowania przekazywania przez wynik jest użycie modyfikatora `out`.
- *
- * 1. Do podprogramu `passByResult` przekazywana jest zmienna `result` bez wartości początkowej
- * 2. Zmienna `result` zachowuje się jak parametr lokalny
- * 3. Po wykonaniu obliczeń w `passByResult`, wynik przypisywany jest do zmiennej `result` i trafia do programu
- *    głównego.
- *
  * Przekazywanie przez wynik wspiera język Ada. Oto przykład
  
    ```
@@ -52,22 +41,31 @@ public class PassByResult: ICommand
     }
     public string Description()
     {
-        throw new NotImplementedException();
+        return
+            "Przekazywanie przez wynik oznacza, że do podprogramu/funkcji przekazywana jest zmienna, do której przypisywana jest wartość w podprogramie.\n" +
+            "Nie jest to jednak przekazywanie przez referencję, gdzie przekazywany jest wkaźnik do zmiennej.\n" +
+            "\n" +
+            "W języku C# nabradziej zbliżonym sposobem zaprezentowania przekazywania przez wynik jest użycie modyfikatora `out`.\n" +
+            "\n" +
+            "Przekazywanie przez wynik wspiera język Ada. W kodzie źródłowym klasy został umieszczony przykład w tym języku.";
     }
     public void Execute()
     {
-        // utworzenie i przekazanie zmiennej `result` do podprogramu
+        _ioHelper.StepComment("Do podprogramu `passByResult` zostaje przekazany parametr jako zmienna `out int result`\n" +
+                              "Parametr `result` nie został wcześniej zainicjowany.\n");
+        
         passByResult(out int result);
         
-        Console.WriteLine(result);
+        _ioHelper.StepComment("Podprogram zakończył pracę. Oto wynik zapisany w przekazanej zmiennej:");
+        _ioHelper.Result($"result = {result}");
     }
 
     private void passByResult(out int result)
     {
-        // nie można wykonać operacji na result przed przypisaniem wartości do zmiennej
-        // `result += 1;` zwróci błąd
-
-        // przypisanie wartości do przekazanej zmiennej
+        _ioHelper.StepComment("W podprogramie nie ma możliwości wykonanie operacji z wykorzystaniem wartości przekazanej zmiennej.\n" +
+                              "Możliwe jest jedynie przypisanei wartości. Wyreżenie `result += 1` zwróci błąd.\n");
+        
+        _ioHelper.StepComment("Następuje przypisanie wartości `1` do parametru `result`");
         result = 1;
     }
 }
